@@ -1,0 +1,104 @@
+	%After first compiling run following commands in command prompt and compile again:
+	%bibtex Proposal - where Proposal is the name of your main file
+	%makeglossaries Proposal - where Proposal is the name of your main file
+	
+	%\documentclass[twoside, openright, a4paper,12pt]{report} % Two side 
+	\documentclass[oneside,a4paper,12pt]{book} 
+	\usepackage{pdfpages}
+	\usepackage{JMTemplate}
+	\usepackage{tikz}
+	\usepackage{pgfplots}
+	\usetikzlibrary{automata,positioning}
+	\usepackage{amsthm}
+	\usepackage{amssymb}
+	\usepackage[]{amsmath}
+	\usepackage{dsfont}
+	\usepackage{pgfplots}
+	\usepackage{color}
+	\definecolor{darkgreen}{RGB}{47,109,79}
+	\definecolor{darkblue}{RGB}{57,79,99}
+	\definecolor{rosso}{RGB}{220,57,18}
+	\definecolor{giallo}{RGB}{255,153,0}
+	\definecolor{blu}{RGB}{102,140,217}
+	\definecolor{verde}{RGB}{16,150,24}
+	\definecolor{viola}{RGB}{153,0,153}
+	\definecolor{awesome}{rgb}{1.0, 0.13, 0.32}
+	\definecolor{ref}{rgb}{0.65,0.65,0.65} %{0.4,0.8,0.85}
+	\definecolor{highlightrow}{rgb}{0.9,0.9,0.9}
+	
+	\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+	
+	% Information for pdf making 
+	%=======================================================
+	\input{Thesis_Info}
+	\hypersetup{
+		pdftitle={\entitle} 
+		,pdfauthor ={\enAuthor}
+		,pdfsubject={\enlevel{} \entype{} (\enmajor), \enDep, Sharif University of Technology, Tehran, Iran}
+	}
+	
+	\input{Thesis_GlossaryStyle} %This file wasR prepared by Sadegh Dorri
+	\makeglossaries
+	% Begin of document
+	%=======================================================
+	\begin{document}
+		\input{Thesis_headerfooter}
+		\dominitoc %initialization of minitoc
+		\bstctlcite{Proposal:BSTcontrol} % activate IEEEtran_biboptions.bib options
+		% Front matter
+		%=======================================================
+		\include{Thesis_Cover_fa}
+		\cleardoublepage % terminates the current paragraph and page, the same way as a report document.
+		\include{Thesis_Confirm} 
+		%\includepdf[pages=-]{ScannedConfirm.pdf} % use scanned version for final steps!
+		%\includepdf[pages=-]{Esalat.pdf} % use scanned version for final steps!
+		%\input{Thesis_Ack} % use scanned version for final steps!
+		\input{Thesis_Abstract_fa}
+		\thispagestyle{empty}
+		\cleardoublepage %
+		
+		
+		% Tables
+		%=======================================================
+		\cleardoublepage % terminates the current paragraph and page, the same way as a report document.
+		\pagenumbering{harfi}
+		\tableofcontents
+		\cleardoublepage % terminates the current paragraph and page, the same way as a report document.
+		\listoffigures
+		%\listoftables
+		\cleardoublepage % terminates the current paragraph and page, the same way as a report document.
+		\listoftables
+		%\listoftables
+		\cleardoublepage % terminates the current paragraph and page, the same way as a report document.
+		\pagenumbering{arabic} 
+		
+		% Chapters
+		%=======================================================
+		\include{Thesis_Chap1}
+		\include{Thesis_Chap2}
+		\include{Thesis_Chap3}
+		\include{Thesis_Chap4}
+		\include{Thesis_Chap5}
+		\include{Thesis_Chap6}
+		% Appendices, Glossaries and Refrences
+		%=======================================================
+		\begin{appendices}
+			%\resettranslations % reset the first-use flag of tranlsation glossareis
+			\include{Thesis_App1}
+			\include{Thesis_App2}
+			%\include{Thesis_App3}
+		\end{appendices}
+		\include{Thesis_References}
+		
+		%\makeglossaries
+		\cleardoublepage
+		\resettranslations
+		\printpersianglossary
+		\cleardoublepage
+		\printenglishglossary
+		
+		\include{Thesis_Abstract_en}
+		\include{Thesis_Cover_en}
+		\thispagestyle{empty}
+		\cleardoublepage % terminates the current paragraph and page, the same way as a report document.
+	\end{document}

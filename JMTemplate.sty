@@ -1,0 +1,268 @@
+% This Template Designed By Jafar Muhammadi
+\ProvidesPackage{JMTemplate}
+%%% My Packages
+\usepackage{nameref}
+\usepackage{nicefrac}
+%Required Packages
+%=======================================================
+\usepackage{fancybox}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage[headheight=15pt]{geometry}
+%\usepackage{geometry}
+\usepackage{amsthm,amssymb,amsmath}
+\usepackage{bbm}
+\usepackage[font=small,format=plain,labelfont=bf,up,up]{caption} %Image captions reformatt ---%%% textfont=it
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage{multicol} % multicolumn page
+\usepackage{xifthen}% provides \isempty test (used in glossary style)
+\usepackage{minitoc} % For minitoc. \usepackage{mtcoff} to disable
+\usepackage{appendix} % for more control over appendices
+\usepackage{enumerate}
+\usepackage{tikz}
+\usepackage{color}
+\usepackage{subfigure}
+%\usepackage{subfig}
+\usepackage{ctable}
+\usepackage{tabularx}
+\usepackage{colortbl}
+\usepackage{multirow}
+\usepackage{ dsfont }
+\usepackage{cite}
+\usepackage{bm}
+\usepackage{bidipoem}
+% Silence warnings issued by minitoc{hints} due to using package of hyperref
+\usepackage{silence}
+
+\WarningFilter{minitoc(hints)}{W0023}
+\WarningFilter{minitoc(hints)}{W0024}
+\WarningFilter{minitoc(hints)}{W0028}
+\WarningFilter{minitoc(hints)}{W0030}
+%=======================================================
+
+%\usepackage{perpage} % reset footnotes on each page
+%\MakePerPage{footnote} % reset footnotes on each page
+\usepackage{zref-perpage}
+\zmakeperpage{footnote}
+\interfootnotelinepenalty=10000 % prevent LaTeX from splitting footnotes across pages
+
+% Preventing footnotes indent
+%=======================================================
+\usepackage[hang,splitrule,bottom]{footmisc}
+
+\addtolength{\footskip}{0cm}
+\setlength{\footnotemargin}{0.2 cm}
+\setlength{\footnotesep}{0.3 cm}
+
+%Xepersian Packages
+%=======================================================
+\usepackage[xetex,bookmarksnumbered]{hyperref} %Print Version
+\usepackage[all]{hypcap} % fix hyperref to point to the figure/table instead of its caption. Must be loaded after hyperref.
+\usepackage[xindy,sanitize={name=true,description=false,symbol=true}]{glossaries} % must be after hyperref 
+\usepackage[extrafootnotefeatures]{xepersian} % Should be loaded after all other packages
+
+%Page setup
+%=======================================================
+\geometry{top=3cm,right=3.5cm,bottom=2.5cm,left=2.5cm} %margin setting
+
+%minitoc - \usepackage{mtcoff} to disable
+%=======================================================
+%\tightmtctrue % use less space between minitoc lines
+\setcounter{minitocdepth}{1} % show just sections
+\setlength{\mtcindent}{12pt} % two-side indentation 
+\renewcommand{\mtcfont}{\small\rm} % font size
+\renewcommand{\mtcSfont}{\small\rm} % Section entries font
+\renewcommand{\mtifont}{\small\bf} % title of minitoc font
+\let \Oldminitoc \minitoc 
+\renewcommand{\minitoc}{\Oldminitoc \vspace{12pt}} % add auto-vspace after \minitoc's
+\renewcommand{\mtctitle}{مطالب این فصل}
+\renewcommand\qedsymbol{$\blacksquare$}
+
+%Paragraph setting
+%=======================================================
+\linespread{1.3}
+\setlength{\parindent}{0pt} %The indent of the paragraph first line
+\setlength{\parskip}{7pt} %Befor paragraph space
+\frenchspacing
+
+%General Setting
+%=======================================================
+\hypersetup{colorlinks=true, linkcolor=blue, citecolor=magenta, filecolor=green, urlcolor=blue} %digital version
+%\hypersetup{colorlinks=true, linkcolor=black, citecolor=black, filecolor=black, urlcolor=black} %print version
+% WARNING :‌change end of timelin.tex
+
+
+% tell tex engine address of folder containing your pictures
+\graphicspath{{images/}}
+
+\numberwithin{table}{chapter}
+\numberwithin{figure}{chapter}
+\numberwithin{equation}{chapter}
+
+\settextfont{XBYas} % HM XNiloofar % HM FElmi
+\setdigitfont{XBYas}
+\setiranicfont[Scale=1]{XBYas}%{PersianModern-Oblique}
+%\setiranicfont[Scale=0.95]{XB Zar Oblique}
+\setlatintextfont[Scale=0.8]{Linux Libertine O}
+%\DeclareMathSizes{12}{10}{9}{9}
+\defpersianfont\nastaliq[Scale=1.3]{IranNastaliq}
+\defpersianfont\chapternumber[Scale=3]{XBYas}
+\defpersianfont\titr[Scale=1]{XBTitre}
+
+% Environments
+%=======================================================
+\newenvironment{hint}
+	{\noindent \ignorespaces
+	 \begin{quote}}
+	{\end{quote}
+	 \ignorespacesafterend}
+	 
+\newcommand{\JBox}[1]{
+	\begin{center}\shadowbox{\begin{minipage}{10cm}{#1}\end{minipage}}\end{center}}
+\setlength{\fboxsep}{12pt} 
+
+%\newcommand{\mnote}[1]{\marginpar{\footnotesize \raggedright #1}}
+% margin note definition
+\setlength{\marginparwidth}{2cm}
+	
+% Commands and definitions
+%=======================================================
+\newcommand{\Footnote}[1]{\LTRfootnote{#1}}
+\newcommand{\test}[1]{This is a \emph{#1} test.}
+\defpersianfont\titlefont[Scale=1.8]{XBYas}%HMXYas
+
+% numbering style definition
+\renewcommand{\thechapter}{\arabic{chapter}}
+\renewcommand{\thesection}{\arabic{section}-\arabic{chapter}}
+\renewcommand{\thetable}{\arabic{table}-\arabic{chapter}}
+\renewcommand{\thefigure}{\arabic{figure}-\arabic{chapter}}
+
+% key words renaming
+\renewcommand{\bibname}{\rl{منابع و مراجع}}
+\renewcommand*\listfigurename{فهرست شکل‌ها}
+\renewcommand*\listtablename{فهرست جدول‌ها}
+
+% theorem style
+%\newtheoremstyle{mythm}{}{}{\itshape}{}{\bfseries}{}{ }{}
+%\newtheoremstyle{mydef}{}{}{}{}{\bfseries}{}{ }{}
+%\SepMark{-}
+%\theoremstyle{mydef}
+%\newtheorem{definition}{تعریف}[chapter]
+%\theoremstyle{mythm}
+%\newtheorem{theorem}[definition]{قضیه}
+%\newtheorem{lemma}[definition]{لم}
+%\newtheorem{proposition}[definition]{گزاره}
+%\newtheorem{corollary}[definition]{نتیجه}
+%\newtheorem{remark}[definition]{ملاحظه}
+%\theoremstyle{mydef}
+
+\theoremstyle{definition}
+\newtheorem{definition}{تعریف}%[chapter]
+\newtheorem{proposition}{گزاره}%[chapter]
+\newtheorem{lemma}{لم}[chapter]
+\newtheorem{theorem}{قضیه}[chapter]
+\newtheorem{corollary}[definition]{نتیجه}
+\newtheorem{example}{مثال}[chapter]
+
+% math notations and definitions
+\newcommand*{\Cdot}{\raisebox{-0.45ex}{\scalebox{1.15}{$\cdot$}}}
+\newcommand*{\Ldot}{\raisebox{-0.2ex}{\scalebox{1.15}{$\cdot$}}}
+
+%\citestyle{}
+%=======================================================
+% IEEEtran BibTeX style special control command (\bstctlcite). See its guide for more info.
+
+\makeatletter
+\def\bstctlcite{\@ifnextchar[{\@bstctlcite}{\@bstctlcite[@auxout]}}
+\def\@bstctlcite[#1]#2{\@bsphack
+  \@for\@citeb:=#2\do{%
+    \edef\@citeb{\expandafter\@firstofone\@citeb}%
+    \if@filesw\immediate\write\csname #1\endcsname{\string\citation{\@citeb}}\fi}%
+  \@esphack}
+\makeatother
+
+% Fix blank pages in a twoside, (To not show header/footer)
+%%=======================================================
+\makeatletter
+\def\cleardoublepage{\clearpage\if@twoside \ifodd\c@page\else
+\hbox{}
+\thispagestyle{empty}
+\newpage
+\if@twocolumn\hbox{}\newpage\fi\fi\fi}
+\makeatother
+
+%For defining of glossary items
+%%=======================================================
+\newcommand{\trans}[3][]{% Translation. params: translation, original latin term, optional rtl note
+\newtrans{#2}{#3}% add to glossary
+\term[#1]{#2}%cite the added word
+}
+
+
+%citation
+%%=======================================================
+\newcommand{\mycite}[2][]{% citation, just like \citep optional params: chapter or page number (a right to left thing!). 
+\ifthenelse{\isempty{#1}}%
+  		{\rl{\cite{#2}}}% if #1 empty: mycite{sth}
+  		{\rl{\cite[\rl{#1}]{#2}}}% if #1 is not empty: mycite[sth1]{sth2}
+}
+
+%Customizing the chapters first page 
+%%=======================================================
+\makeatletter
+\newcommand\mycustomraggedright{%
+ \if@RTL\raggedleft%
+ \else\raggedright%
+ \fi}
+\def\@part[#1]#2{%
+\ifnum \c@secnumdepth >-2\relax
+\refstepcounter{part}%
+\addcontentsline{toc}{part}{\thepart\hspace{1em}#1}%
+\else
+\addcontentsline{toc}{part}{#1}%
+\fi
+\markboth{}{}%
+{\centering
+\interlinepenalty \@M
+\ifnum \c@secnumdepth >-2\relax
+ \huge\bfseries \partname\nobreakspace\thepart
+\par
+\vskip 20\p@
+\fi
+\Huge\bfseries #2\par}%
+\@endpart}
+\def\@makechapterhead#1{%
+\vspace*{30\p@}%
+{\parindent \z@ \mycustomraggedright %\@mycustomfont
+\ifnum \c@secnumdepth >\m@ne
+\if@mainmatter
+
+\huge\bfseries \@chapapp\space {\chapternumber\thechapter}
+\par\nobreak
+\vskip 10\p@
+\fi
+\fi
+\interlinepenalty\@M 
+\Huge \bfseries #1\par\nobreak
+\vskip 20\p@
+}}
+\makeatother
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator{\ME}{\mathds{E}}
+%\newcommand{\temptext}[1]{\leavevmode \newline \textcolor{red}{<<\textbf{#1}>>}}
+\newcommand{\temptext}[1]{}
+%\newcommand{\fullref}[1]{\nameref{#1} (بخش ‎\ref{#1}‎ )}
+\newcommand{\fullref}[1]{\nameref{#1} (بخش ‎\ref{#1})}
+\newcommand{\ngram}{$n$-گرام‌}
+\newcommand{\logit}[3]{\mathfrak{F}^{(#1)}_{#2}(#3)}
+\newcommand{\logitwp}[1]{\mathfrak{F}_{#1}}
+\newcommand{\bigexp}[1]{\exp\big({#1}\big)}
+\newcommand{\normexp}[1]{\exp({#1})}
+\newcommand{\compmin}[1]{\min\{{#1}\}}
+\newcommand{\compmax}[1]{\max\{{#1}\}}
+\makeatletter% Set distance from top of page to first float
+\setlength{\@fptop}{5pt}
+\makeatother

@@ -1,0 +1,123 @@
+\glsdisablehyper % disable hyperlinks
+
+\newglossarystyle{persian-to-english}{%
+%	\glossarystyle{listdotted}% the base style
+	% put the glossary in a two column page and description (as in listdotted style) environment:
+	\renewenvironment{theglossary}%
+		{\begin{multicols}{2}\begingroup \flushleft }%
+		{\endgroup \end{multicols}}%
+%	\renewenvironment{theglossary}{}{}%
+	% have nothing after \begin{theglossary}:
+	\renewcommand*{\glossaryheader}{}%
+	% have nothing between glossary groups:
+	\renewcommand*{\glsgroupheading}[1]{}%
+	\renewcommand*{\glsgroupskip}{}%
+	% set how each entry should appear: \glossaryentryfield{label}{formatted name}{description}{symbol}{number list}
+	\renewcommand*{\glossaryentryfield}[5]{%
+		\glstarget{##1}{##2}% persian term
+		\dotfill%dots
+		\space \lr{##3} \\%
+%		\dotfill%
+%		\space {##5} \\%translation term
+	}%
+	% set how sub-entries appear:
+	\renewcommand*{\glossarysubentryfield}[6]{%
+		\glossaryentryfield{##2}{##3}{##4}{##5}{##6}%
+	}%
+}
+% ========= Glossary styles (put in files) =========
+\newglossarystyle{english-to-persian}{%
+%	\glossarystyle{listdotted}% the base style
+	% put the glossary in a two column page and description (as in listdotted style) environment:
+	\renewenvironment{theglossary}%
+		{\begin{multicols}{2}\begingroup \flushright }%
+		{\endgroup \end{multicols}}%
+%	\renewenvironment{theglossary}{\Latin{}}{\Persian{}}%
+	% have nothing after \begin{theglossary}:
+	\renewcommand*{\glossaryheader}{}%
+	% have nothing between glossary groups:
+	\renewcommand*{\glsgroupheading}[1]{}%
+	\renewcommand*{\glsgroupskip}{}%
+	% set how each entry should appear:
+	\renewcommand*{\glossaryentryfield}[5]{%
+		\glstarget{##1}{##2}% persian term
+		\dotfill%dots
+		\space \rl{##3} \\%translation term
+	}%
+	% set how sub-entries appear:
+	\renewcommand*{\glossarysubentryfield}[6]{%
+		\glossaryentryfield{##2}{##3}{##4}{##5}{##6}%
+	}%
+}
+
+% ========= GLOSSARIES =========
+\newglossary{p2e-terms}{fa.gls}{fa.glo}{واژه‌نامه فارسی به انگلیسی} % persian to english
+\newglossary{e2p-terms}{en.gls}{en.glo}{English to Persian Glossary} % english to persian
+
+\newcommand{\newtrans}[3][]{% params: persian, english translations, first optional is a key
+\newtranspl[#1]{#2}{#3}{#2‌ها}%
+}
+
+\newcommand{\newtranspl}[4][]{% params: persian, english, plural form of persian, first optional is a key
+\ifthenelse{\isempty{#1}}{\def\key{#2}}{\def\key{#1}}%
+\newglossaryentry{en:\key}{type={e2p-terms}, name={#3}, description={#2}}% english glossary
+%	\newglossaryentry{fa:\key}{type={p2e-terms}, name={#2}, description={#3}}% persian glossary
+\newglossaryentry{fa:\key}{type={p2e-terms}, name={#2}, plural={#4}, description={#3}}% persian glossary
+}
+% ========= END OF GLOSSARIES =========
+
+% Show a translation and footnote it.
+% Params (the same as \glsdisplayfirst):{text}{description}{symbol}{insert}
+% insert can possibly be filled with some notes on the translation.
+\newcommand{\showTransFirst}[4]{%  translation for the first time
+\ifthenelse{\isempty{#4}}%
+{\textit{#1}\LTRfootnote{ #2}}% if #4 is empty (no notes) 
+%%%{\textit{#1}\LTRfootnote{{#2} #4}}% if #4 is not empty
+{\textiranic{#1}\LTRfootnote{{#2} #4}}% if #4 is not empty
+%{\textit{#1}\footnote{ \lr{#2}؛  #4}}% if #4 is not empty
+}
+
+\newcommand{\showTrans}[4]{% translation for next times
+\ifthenelse{\isempty{#4}}%
+{{#1}}% if #4 is empty (no notes) 
+{\textit{#1}\footnote{#4}}% if #4 is not empty
+}
+
+\defglsdisplayfirst[p2e-terms]{\showTransFirst{#1}{#2}{#3}{#4}}% protect fragile commands
+\defglsdisplay[p2e-terms]{\showTrans{#1}{#2}{#3}{#4}}
+
+% Symbol may temporarily used to keep some notes on the translation.
+% It must be replaced with a user1 key which now raises error, texlive must be upgraded.
+\newcommand{\term}[2][]{%
+\glsadd{en:#2}%
+\ifthenelse{\isempty{#1}}{\gls{fa:#2}}{\gls{fa:#2}[#1]}%
+}
+\newcommand{\termpl}[2][]{%
+\glsadd{en:#2}%
+\ifthenelse{\isempty{#1}}{\glspl{fa:#2}}{\glspl{fa:#2}[#1]}%
+}
+%=========== Print Glossaries ===============
+% see: http://www.parsilatex.com/forum/SMF/index.php?topic=345.0
+%\glossarystyle{persian-to-english}
+%\def\glossaryname{واژه‌نامه فارسی به انگلیسی}
+%\printglossaries
+
+\newcommand{\printpersianglossary}[1][واژه‌نامه فارسی به انگلیسی]{{%
+	\phantomsection % hyperref: enable hyperlinking from the table of contents to this point
+	\addcontentsline{toc}{chapter}{#1} % add a line in the Table of Contents (first option, toc), it will be like the ones 
+	\renewcommand{\glossarymark}[1]{\markboth{##1}}% correct handling of page header
+	\printglossary[type={p2e-terms},style={persian-to-english},title={#1}]%
+}}
+
+
+\newcommand{\printenglishglossary}[1][واژه‌نامه انگلیسی به فارسی]{{%
+	\phantomsection % hyperref: enable hyperlinking from the table of contents to this point
+	\addcontentsline{toc}{chapter}{#1} % add a line in the Table of Contents (first option, toc), it will be like the ones 
+	\renewcommand{\glossarymark}[1]{\markboth{##1}}% correct handling of page header
+	\begin{latin}%
+	\printglossary[type={e2p-terms},style={english-to-persian},title={\rl{#1}}]%
+	\end{latin}%
+}}
+
+% Reset the first-use flag of the transaltion glossareis
+\newcommand{\resettranslations}{\glsresetall[e2p-terms,p2e-terms]}

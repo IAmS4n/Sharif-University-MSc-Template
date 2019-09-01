@@ -1,0 +1,16 @@
+\bibliographystyle{IEEEtran} %alpha or amsalpha or ieeetr. Control options of this style are put in IEEEtran_biboptions.bib file and activated just after \begin{document}
+% IEEEtranSA
+%\printglossaries
+\cleardoublepage % terminates the current paragraph and page, the same way as a report document.
+\phantomsection % hyperref: enable hyperlinking from the table of contents to this point
+\addcontentsline{toc}{chapter}{مراجع} % add a line in the Table of Contents (first option, toc), it will be like the ones created by chapters (second option, chapter)
+\renewcommand{\bibname}{\rl{مراجع}} % title of the bibliography chapter for the report and book styles. redefine \refname for the references section of an article
+\chapter*{مراجع} % custom chapter, because in latin env, title goes LTR
+{ %Disable chapter command for bibliography just in this block!
+\renewcommand{\chapter}[2]{} % disable the automatic chapter
+\begin{latin} % can use \setRTLbibitems in newer versions of xerpersian
+
+\bibliography{IEEEabrv,Thesis_References} % IEEEtran_biboptions provides the customization options activated before by \bstctlcite
+\end{latin}
+}
+% IEEEtran_biboptions,
